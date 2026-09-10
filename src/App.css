@@ -1,0 +1,113 @@
+.shader-stage {
+  position: relative;
+  width: 100%;
+  min-height: 600px;
+  overflow: hidden;
+}
+
+.shader-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.content-overlay {
+  position: relative;
+  z-index: 1;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+header {
+  width: min(100% - 32px, 720px);
+  margin: 0 auto;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+main {
+  width: min(100% - 32px, 720px);
+  margin: 0 auto;
+  padding: 28px 0 16px;
+  text-align: center;
+}
+
+main h2,
+main h3 {
+  max-width: 100%;
+  margin: 0;
+}
+
+main h2 {
+  color: var(--ink);
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+main h3 {
+  margin-top: 12px;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.content-overlay > div {
+  width: min(100% - 32px, 720px);
+  margin: 0 auto;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.counter {
+  min-width: 150px;
+  padding: 10px 16px;
+  border: 1px solid var(--ink);
+  border-radius: 4px;
+  color: var(--ink);
+  background: transparent;
+  font: 400 0.95rem var(--sans);
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.counter:hover {
+  color: var(--paper);
+  background: var(--ink);
+}
+
+.counter:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+  header,
+  main,
+  .content-overlay > div {
+    width: min(100% - 24px, 720px);
+  }
+
+  header {
+    padding: 12px 0;
+  }
+
+  main {
+    padding: 24px 0 14px;
+  }
+
+  main h3 {
+    margin-top: 10px;
+  }
+}

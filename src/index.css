@@ -1,0 +1,28 @@
+:root {
+  --paper: #000000;
+  --ink: #ffffff;
+  --muted: #aaaaaa;
+  --border: #333333;
+  --accent: #ffffff;
+  --sans: Arial, sans-serif;
+
+  font: 18px/1.45 var(--sans);
+  color: #ffffff;
+  background: var(--paper);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--paper);
+}
+
+#root {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
