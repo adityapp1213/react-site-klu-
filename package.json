@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy" : "npm run build",
-    "deploy" : "gh-pages -d dist"
+    "deploy" : "gh-pages -d dist",
+    "deployment url" : "https://adityapp1213.github.io/react-site-klu/-"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
@@ -32,6 +33,6 @@
     "globals": "^17.7.0",
     "vite": "^8.2.0"
   },
-  "homepage": "https://adityapp1213.github.io/react-site-klu/"
+  "homepage": "https://adityapp1213.github.io/react-site-klu-/"
 }
 

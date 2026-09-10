@@ -14,7 +14,7 @@ export default defineConfig({
     tailwindcss(),
     react(),
   ],
-  base: "/react-site-klu/",
+  base: "/react-site-klu-/",
 })
 
 
