@@ -9,6 +9,11 @@
   position: absolute;
   inset: 0;
   z-index: 0;
+  background: radial-gradient(circle at center, #242424 0%, #090909 72%);
+}
+
+.shader-fallback {
+  background: radial-gradient(circle at center, #242424 0%, #090909 72%);
 }
 
 .content-overlay {

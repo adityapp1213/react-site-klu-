@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Renderer, Program, Mesh, Triangle } from 'ogl';
 
 const hexToRgb = hex => {
@@ -163,6 +163,7 @@ const LightTunnel = ({
   className = ''
 }) => {
   const containerRef = useRef(null);
+  const [webglAvailable, setWebglAvailable] = useState(true);
   const mouseEnabledRef = useRef(mouseInteraction);
   const mouseStrengthRef = useRef(mouseStrength);
 
@@ -170,13 +171,19 @@ const LightTunnel = ({
     const container = containerRef.current;
     if (!container) return;
 
-    const renderer = new Renderer({
-      webgl: 2,
-      alpha: true,
-      premultipliedAlpha: true,
-      antialias: false,
-      dpr: Math.min(window.devicePixelRatio || 1, 2)
-    });
+    let renderer;
+    try {
+      renderer = new Renderer({
+        webgl: 2,
+        alpha: true,
+        premultipliedAlpha: true,
+        antialias: false,
+        dpr: Math.min(window.devicePixelRatio || 1, 2)
+      });
+    } catch {
+      queueMicrotask(() => setWebglAvailable(false));
+      return;
+    }
 
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
@@ -187,7 +194,9 @@ const LightTunnel = ({
     container.appendChild(canvas);
 
     const geometry = new Triangle(gl);
-    const program = new Program(gl, {
+    let program;
+    try {
+      program = new Program(gl, {
       vertex,
       fragment,
       uniforms: {
@@ -220,7 +229,12 @@ const LightTunnel = ({
         uGrain: { value: 1.0 },
         uGrainIntensity: { value: 0.05 }
       }
-    });
+      });
+    } catch {
+      queueMicrotask(() => setWebglAvailable(false));
+      gl.getExtension('WEBGL_lose_context')?.loseContext();
+      return;
+    }
 
     const mesh = new Mesh(gl, { geometry, program });
     ctxMap.set(container, { renderer, program, mesh });
@@ -308,9 +322,7 @@ const LightTunnel = ({
       canvas.removeEventListener('mousemove', handleMouseMove);
       canvas.removeEventListener('mouseleave', handleMouseLeave);
       ctxMap.delete(container);
-      try {
-        container.removeChild(canvas);
-      } catch {}
+      if (container.contains(canvas)) container.removeChild(canvas);
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
   }, []);
@@ -399,7 +411,7 @@ const LightTunnel = ({
   return (
     <div
       ref={containerRef}
-      className={`relative h-full w-full overflow-hidden ${className}`.trim()} />
+      className={`relative h-full w-full overflow-hidden ${className} ${webglAvailable ? '' : 'shader-fallback'}`.trim()} />
   );
 };
 
