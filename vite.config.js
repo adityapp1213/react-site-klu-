@@ -12,9 +12,9 @@ export default defineConfig({
   },
   plugins: [
     tailwindcss(),
+    react(),
   ],
-  plugins: [react()],
-  base: "/book-landing-page/"
+  base: "/react-site-klu/",
 })
 
 
